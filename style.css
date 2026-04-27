@@ -598,12 +598,13 @@ a {
 }
 
 /* ── Garden Grid ─────────────────────────────────────────── */
+
 .garden-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
-
-    max-width: 420px;
+  width: 100%;
+  max-width: 420px;
 }
 
 .garden-slot {
@@ -878,5 +879,4 @@ a {
   }
 }
 
-  width: 100%;
-  max-width: 420
+ 
