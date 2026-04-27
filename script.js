@@ -173,7 +173,7 @@ const plantIcons = ['🌱', '🌿', '☘️', '🍃', '🌾', '🪴', '🌳', '�
 const STATE_KEY = 'pocketThoughtsState';
 
 let state = {
-  language:         'en',
+  language:         'null',
   garden:           [],   // [{ id, text, plantedAt, iconIndex }]
   plantedIds:       [],
   recentlyShownIds: [],
@@ -203,11 +203,6 @@ function saveState() {
 }
 
 /* ── Language ────────────────────────────────────────────── */
-function detectInitialLanguage() {
-  if (state.language) return state.language;
-  const nav = (navigator
-
-
 
 
 function detectInitialLanguage() {
