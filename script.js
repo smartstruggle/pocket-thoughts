@@ -204,14 +204,17 @@ function saveState() {
 
 /* ── Language ────────────────────────────────────────────── */
 
-
 function detectInitialLanguage() {
-  if (state.language) return state.language;
   const nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
   return nav.startsWith('de') ? 'de' : 'en';
 }
 
 function setLanguage(lang) {
+  // Safety fallback (verhindert undefined-Fehler)
+  if (!translations[lang]) {
+    lang = 'en';
+  }
+
   state.language = lang;
   saveState();
 
@@ -233,18 +236,21 @@ function setLanguage(lang) {
     btn.classList.toggle('active', pressed);
   });
 
-  // Update menu aria-labels
+  // Update menu aria-labels (mit Absicherung)
   const menuTrigger = document.getElementById('menu-trigger');
-  if (menuTrigger) menuTrigger.setAttribute('aria-label', translations[lang].menuLabel);
+  if (menuTrigger && translations[lang]) {
+    menuTrigger.setAttribute('aria-label', translations[lang].menuLabel);
+  }
 
   const langGroup = document.querySelector('.lang-toggle');
-  if (langGroup) langGroup.setAttribute('aria-label', translations[lang].langLabel);
+  if (langGroup && translations[lang]) {
+    langGroup.setAttribute('aria-label', translations[lang].langLabel);
+  }
 
   // Update garden count badge
   updateGardenBadge();
 
-  // If we're on the harvest screen and there are cards, re-render isn't needed
-  // but if garden screen is active, re-render it
+  // Re-render garden if visible
   const gardenScreen = document.getElementById('screen-garden');
   if (gardenScreen && gardenScreen.classList.contains('active')) {
     renderGarden();
